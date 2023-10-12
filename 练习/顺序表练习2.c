@@ -27,7 +27,7 @@ int Insert_SeqList(SeqList *L,int i,ElemType x) {
         return -1;
     }
     for(j = L -> length; j > i; j--)
-        L  -> elem[j + 1] = L -> elem[j];
+        L  -> elem[j] = L -> elem[j - 1];
     L -> elem[i] = x;
     L -> length++;
     return 1;
@@ -43,7 +43,7 @@ int Delete_SeqList(SeqList *L, int i, ElemType *e) {
 	* e = L -> elem[i];
 	for(j = i; j < L -> length; j++)
 	{
-		L -> elem[j] = L -> elem[j + 1];
+		L -> elem[j - 1] = L -> elem[j];
 	}
 	L -> length--;
 	return 1;
@@ -68,7 +68,7 @@ int main() {
 	printf("%d\n",x);
 	
 	int *e = (int*)malloc(sizeof(int));
-	Delete_SeqList(L,0,&e);
-	printf("%d\n",e);
+	Delete_SeqList(L,0,e);
+	printf("%d\n",*e);
 	return 0;
 }
