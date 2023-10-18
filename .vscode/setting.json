@@ -1,0 +1,32 @@
+{
+    "security.workspace.trust.untrustedFiles": "open",
+    "code-runner.runInTerminal": true,
+    "extensions.ignoreRecommendations": true,
+    "files.autoSave": "afterDelay",
+    "workbench.colorTheme": "One Dark Pro",
+    "editor.fontSize": 20,
+    "markdown-preview-enhanced.previewTheme": "atom-dark.css",
+    "ipynb.pasteImagesAsAttachments.enabled": false,
+    "files.autoGuessEncoding": true,
+    "explorer.confirmDelete": false,
+    "editor.codeActionsOnSave": {},
+    "files.encoding": "gbk",
+    "window.zoomLevel": 1,
+    "git.autofetch": true,
+    "git.openRepositoryInParentFolders": "never",
+    "[html]": {
+        "editor.defaultFormatter": "HookyQR.beautify"
+    },
+    "git.confirmSync": false,
+    "editor.autoClosingBrackets": "always",
+    "editor.formatOnPaste": true,
+    "editor.formatOnSave": true,
+    "editor.formatOnType": true,
+    "C_Cpp.autoAddFileAssociations": false,
+    "C_Cpp.default.compilerPath": "D:/Syhaun/MinGW64/bin/gcc.exe -std=c99",
+    "C_Cpp.default.customConfigurationVariables": {},
+    "C_Cpp.codeAnalysis.clangTidy.headerFilter": "",
+    "C_Cpp.default.cStandard": "c99",
+    "C_Cpp.default.intelliSenseMode": "windows-gcc-x64",
+    "editor.fontLigatures": false
+}

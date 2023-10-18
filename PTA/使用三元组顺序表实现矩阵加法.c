@@ -58,5 +58,5 @@ int main()
 /* 请在这里填写答案 */
 int Add(TSMatrix *A, TSMatrix *B, TSMatrix *C)
 {
-    
+    return 1;
 }
