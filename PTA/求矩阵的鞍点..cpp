@@ -78,9 +78,8 @@ int find(int Matrix[N][M], saddle *result)
 
 void print(saddle *S, int count)
 {
-    printf("Saddle point(s) found:\n");
     for (int i = 0; i < count; i++)
     {
-        printf("Row: %d, Column: %d, Value: %d\n", S[i].row+1, S[i].col+1, S[i].val);
+        printf("ÐÐ: %d, ÁÐ: %d, Öµ: %d\n", S[i].row + 1, S[i].col + 1, S[i].val);
     }
 }
