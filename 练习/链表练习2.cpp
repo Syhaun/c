@@ -94,6 +94,21 @@ int Delect(LinkList H, int i, int *x)
     *x = q->date;
     return 1;
 }
+//Á´±íµÄÄæÖÃ
+LinkList Reserse(LinkList H)
+{
+    LinkList p = H->next;
+    LinkList q;
+    H->next = NULL;
+    while(p)
+    {
+        q = p;
+        p = p->next;
+        q->next = H->next;
+        H->next = q;
+    }
+    return q;
+}
 int main()
 {
     LinkList H = Tail_Init();
@@ -101,6 +116,7 @@ int main()
     int *x = (int *)malloc(sizeof(int));
     Delect(H, 3, x);
     printf("%d\n", *x);
+    p = Reserse(H);
     // Insert(H, 6, 100);
     while (p)
     {
