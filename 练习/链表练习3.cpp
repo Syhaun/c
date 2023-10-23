@@ -84,15 +84,18 @@ int Delect(LinkList H,int k,int *e)
     q = p->next;
     *e = q->date;
     p->next = q->next;
-    free(q);
     return 1;
 }
+//按值查找返回
 int main()
 {
     LinkList H = Tail_Init();
     LinkList p = (LinkList)malloc(sizeof(LNode));
     p = H;
-    int flag = Insert(p, 3, 100);
+    //int flag = Insert(p, 3, 100);
+    int *e = (int *)malloc(sizeof(int));
+    int flag2 = Delect(p, 3, e);
+   // printf("%d", &e);
     while(p)
     {
         p = p->next;
