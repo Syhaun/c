@@ -61,24 +61,6 @@ Node* buildHuffmanTree(char data[],int frequency[],int size)
     free(leafNodes);
     return root;
 }
-void encodeText(Node *root,const char *text,char * encodedText)
-{
-    int index = 0;
-    while( * text != '\0')
-    {
-        Node *cur = root;
-        while(cur ->data == '$')
-        {
-            if(*text == '0')
-                cur = cur->left;
-            else if(*text == '1')
-                cur = cur->right;
-            text++;
-        }
-        encodedText[index++] = cur->data;
-    }
-    encodedText[index] = '\0';
-}
 void writeEncodedTextToFile(const char *filename, const char *encodedText)
 {
     FILE *file = fopen(filename, "w");
@@ -121,17 +103,5 @@ int main()
         size++;
     }
     Node *root = buildHuffmanTree(data, frequency, size);
-    char text[MAX_SIZE];
-    int textIndex = 0;
-    file = fopen(filename, "r");
-    while((ch = fgetc(file)) != EOF)
-    {
-        text[textIndex++] = ch;
-    }
-    text[textIndex] = '\0';
-    fclose(file);
-    char encodedText[MAX_SIZE * 2];
-    encodeText(root, text, encodedText);
-    writeEncodedTextToFile("D:\\代码文件夹集\\c语言\\temp\\EncodedText.txt", encodedText);
     return 0;
 }
