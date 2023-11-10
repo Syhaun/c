@@ -40,7 +40,7 @@ LinkList Tail_Init()
         q = p;
         scanf("%d", &x);
     }
-    p->next = NULL;
+    q->next = NULL;
     return H;
 }
 // °´Öµ²éÕÒ
@@ -114,9 +114,9 @@ int main()
     LinkList H = Tail_Init();
     LinkList p = H ->next;
     int *x = (int *)malloc(sizeof(int));
-    Delect(H, 3, x);
-    printf("%d\n", *x);
-    p = Reserse(H);
+    //Delect(H, 3, x);
+    //printf("%d\n", *x);
+    //p = Reserse(H);
     // Insert(H, 6, 100);
     while (p)
     {

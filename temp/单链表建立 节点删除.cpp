@@ -4,71 +4,53 @@
 typedef struct student
 {
 	long num;
-	char name[20];
-	char sex[2];
+	char name[100];
+	char sex[100];
 	int age;
 	struct student* next; 
-}student, * Student;
+} LNode, *LinkList;
 //创建链表(包含了初始化） 
-student* creat()
+LinkList creat(LinkList H)
 {
-	printf("请输入：\n");
-	student  *head = (student*)malloc(sizeof(student));  
-	head -> next = NULL;
-	student *s = (student*)malloc(sizeof(student));
-	student *r = head;    //*s 新创建的结点 
-	scanf("%ld%s%s%d", &s->num, s->name, s->sex, &s->age);
-	while (s->num != 0)   //改进？ 
+	H = (LinkList)malloc(sizeof(LNode));  
+	H -> next = NULL;  //创建头结点
+	LNode *r = H;
+	LinkList s = (LinkList)malloc(sizeof(LNode));
+	while(s->num!=-1)
 	{
-		s = (student*)malloc(sizeof(student));   
-		r->next = s;      //原来的结点指向新结点 
-		r = s;		
-		scanf("%ld%s%s%s", &s->num, s->name, &s->sex, &s->age);
+		s=(LNode*)malloc(sizeof(LNode));
+		scanf("%ld%s%s%d",&s->num,s->name,s->sex,&s->age);
+		r->next=s;
+		r=s;
 	}
-	s->next = NULL;
-	return head;
+	r->next=NULL;
+	return H;
 }
-student* search(student* head, int x)
+void del(LinkList H, int x)
 {
-	student* p;     //循环所用的临时指针
-	p = head;
-	while (p != NULL) //判断头指针指向的链表有结点，否则为空
+	LinkList p,q;          //p指向第i-1的位置 q指向i的位置 
+	p=q=(LNode*)malloc(sizeof(LNode));
+	p=H;
+	int j=0;
+	while(j<x-1&&p)
 	{
-		if (p->age == x)
-			return p;
-		p = p->next;
-	}
-	return NULL;
+		p=p->next;
+		j++;
+	} 
+	if(p==NULL||p->next==NULL)
+	  printf("结点不存在！");
+	else
+	{
+		q=p->next;
+		p->next=q->next;
+		free(q);
+	 } 
 }
-student* del(student* head, int x)
+void print(LinkList H)
 {
-	student* s,* r;
-	if (head == NULL)      //空链表
-	{
-		printf("null\n");
-		return NULL;
-	}
-	s = head;        //s用来找到要删除的结点 从首结点开始
-	while (s->age != x && s->next != NULL) //
-	{
-		s = s->next;       //向后遍历
-		r=s;             //记录当前结点的位置
-	}
-	if (s->age == x)       
-	{
-		if (s == head)    //首结点
-			head = s->next;  //删除此结点 头指针向后移 释放此空间
-		else r->next = s->next;  //r也跟着往后移
-		free(s);
-	}
-	else printf("no find\n");
-	return head;
-}
-void print(student* head)
-{
-	student* p;
-	p = head;
-	while (p != NULL)
+	LNode* p;
+	p = H -> next;
+	while (p)
 	{
 		printf(" % ld % s % s % d", p->num, p->name, p->sex, p->age);
 		p = p->next;
@@ -76,16 +58,14 @@ void print(student* head)
 }
 int main()
 {
-	student* head;
-	head = creat();
-	student * temp = head -> next;
-	print(head);
+	LinkList Head;
+	printf("请输入学号、姓名、性别、年龄\n");
+	LinkList H = creat(Head);
+	print(H);
+	printf("请输入要删除的年龄\n");
 	int x;
 	scanf("%d", &x);
-	do
-	{
-		temp = del(temp, x);
-	} while (search(temp, x) != NULL);
-	print(temp);
+	del(H,x);
+	print(H);
 	return 0;
 }
