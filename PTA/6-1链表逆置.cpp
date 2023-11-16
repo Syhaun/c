@@ -6,23 +6,27 @@ struct ListNode {
     struct ListNode *next;
 };
 
-struct ListNode *reverse(struct ListNode *head) {
-    struct ListNode *prev = NULL; 
-    struct ListNode *current = head;
-    struct ListNode *next = NULL;
+struct ListNode *reverseList(struct ListNode *head)
+{
+    struct ListNode *dim = (struct ListNode *)malloc(sizeof(struct ListNode));
+    dim->next = head;
 
-    while (current != NULL) {
-        next = current->next; 
-        current->next = prev; 
-
-        prev = current; 
-        current = next;
+    struct ListNode *p;
+    struct ListNode *q;
+    p = dim->next;
+    dim->next = NULL;
+    while (p)
+    {
+        q = p->next;
+        p->next = dim -> next;
+        dim->next = p;
+        p = q;
     }
 
-  
-    return prev;
+    head = dim->next;
+    free(dim);
+    return head;
 }
-
 
 struct ListNode *createlist() {
     struct ListNode *head = NULL;
@@ -59,7 +63,7 @@ int main() {
     struct ListNode *head;
 
     head = createlist();
-    head = reverse(head);
+    head = reverseList(head);
     printlist(head);
 
     return 0;
