@@ -25,25 +25,24 @@ LinkList creat()
 }
 void del(LinkList H)
 {
-	LinkList p,q,t;
-	p=H->next ;
-	q=p->next ;
-	while(p)
+	LinkList p, q, t;
+	p = H->next;
+	while (p)
 	{
-	   if(p->x==q->x)
-	   {
-	   	  p->next =q->next ;  //删除第二个重复的结点 q 
-	   	  t=q;
-	   	  free(t);
-	   	  q=p->next ;  //可能还有多个重复的,p不动,q向后移 
-	   }
-	   else 
-	   {
-	      p=p->next ;
-	      q=q->next ;
-	   }
+		q = p->next; // 将 q 指针放在 p 的下一个节点
+
+		while (q && p->x == q->x)
+		{
+			p->next = q->next;
+			t = q;
+			free(t);
+			q = p->next;
+		}
+
+		p = q; // 更新 p 指针的位置
 	}
 }
+
 void print(LinkList H)
 {
 	LinkList p=H->next ;
@@ -57,6 +56,7 @@ void print(LinkList H)
 {
  	LinkList H=creat();
 	print(H);
+	printf("\n");
 	del(H);
  	print(H);
  	return 0;
