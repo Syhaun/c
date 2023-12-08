@@ -56,7 +56,8 @@ void print(LinkList H)
  int main()
 {
  	LinkList H=creat();
- 	del(H);
+	print(H);
+	del(H);
  	print(H);
  	return 0;
 }
