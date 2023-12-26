@@ -1,6 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+
+
 #define MAX_SIZE 256
 
 typedef struct Node
@@ -157,10 +159,12 @@ char *getHuffmanCode(Node *root, char ch, char *code)
 
     return NULL;
 }
+
+//解码
 void decodeText(Node *root)
 {
-    FILE *codeFile = fopen("D://代码文件夹集//c语言//temp//CodeFile.txt", "r");
-    FILE *decodeFile = fopen("D://代码文件夹集//c语言//temp//DecodeFile.txt", "w");
+    FILE *codeFile = fopen("../CodeFile.txt", "r");
+    FILE *decodeFile = fopen("../DecodeFile.txt", "w");
     if (codeFile == NULL || decodeFile == NULL)
     {
         printf("Failed to open the file.\n");
@@ -192,7 +196,7 @@ void decodeText(Node *root)
 }
 int main()
 {
-    char filename[] = "D:\\代码文件夹集\\c语言\\temp\\SourceFile.txt";
+    char filename[] = "../SourceFile.txt";
     FILE *file = fopen(filename, "r");
     if (file == NULL)
     {
@@ -225,7 +229,7 @@ int main()
     getHuffmanCodes(root);
     // 对正文进行编码并存入文件
     char encodedText[10000] = ""; // 用于存储编码后的文本
-    FILE *inputFile = fopen("D:\\代码文件夹集\\c语言\\temp\\SourceFile.txt", "r");
+    FILE *inputFile = fopen("../SourceFile.txt", "r");
     if (inputFile == NULL)
     {
         printf("文件打开失败!\n");
@@ -245,6 +249,6 @@ int main()
     fclose(inputFile);
     // printf("%s", code);
      //printf("%s", encodedText);
-     writeEncodedTextToFile("D://代码文件夹集//c语言//temp//CodeFile.txt", encodedText);
+     writeEncodedTextToFile("../CodeFile.txt", encodedText);
      return 0;
 }
