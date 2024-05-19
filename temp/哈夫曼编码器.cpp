@@ -65,35 +65,45 @@ Node *buildHuffmanTree(char data[], int frequency[], int size)
     return root;
 }
 
-void writeEncodedTextToFile(const char *filename,const char *encodedText)
+void writeEncodedTextToFile(const char *filename, const char *encodedText)
 {
-    FILE *file = fopen(filename, "w");
+    FILE *file = fopen(filename, "wb");
     if (file == NULL)
     {
         printf("文件打开失败!\n");
         return;
     }
-    size_t len = strlen(encodedText);
-    fwrite(encodedText, sizeof(char), len, file);
+    // 将编码后的字符串转换为二进制数据
+    int len = strlen(encodedText);
+    for (int i = 0; i < len; i += 8) // 8位一组
+    {
+        char byte = 0;
+        for (int j = 0; j < 8 && i + j < len; j++)
+        {
+            byte = (byte << 1) | (encodedText[i + j] - '0');
+        }
+        fwrite(&byte, sizeof(char), 1, file);
+    }
+
     fclose(file);
 }
-void printTree(Node *root, int space)
+void printTree(Node *root, int level, int space)
 {
     if (root == NULL)
         return;
 
     space += 3;
 
-    printTree(root->right, space);
+    printTree(root->right, level + 1, space);
 
     printf("\n");
     for (int i = 1; i < space; i++)
         printf(" ");
-    printf("%c\n", root->data);
 
-    printTree(root->left, space);
+    printf("%d:%c\n", level, root->data);
+
+    printTree(root->left, level + 1, space);
 }
-
 void printHuffmanCodesHelper(Node *root, char *code, int depth)
 {
     if (root->left == NULL && root->right == NULL)
@@ -155,8 +165,10 @@ char *getHuffmanCode(Node *root, char ch, char *code)
         char *result = getHuffmanCode(root->right, ch, code + 1);
         if (result != NULL)
             return result;
+        printf("%s", result);
     }
 
+    
     return NULL;
 }
 
@@ -194,6 +206,33 @@ void decodeText(Node *root)
     fclose(codeFile);
     fclose(decodeFile);
 }
+void swap(int *a, int *b)
+{
+    int temp = *a;
+    *a = *b;
+    *b = temp;
+}
+void swapChar(char *a, char *b)
+{
+    char temp = *a;
+    *a = *b;
+    *b = temp;
+}
+void sortFrequency(char data[], int frequency[], int size)
+{
+    for (int i = 0; i < size - 1; i++)
+    {
+        for (int j = 0; j < size - i - 1; j++)
+        {
+            if (frequency[j] < frequency[j + 1])
+            {
+                swap(&frequency[j], &frequency[j + 1]);
+                swapChar(&data[j], &data[j + 1]);
+            }
+        }
+    }
+}
+
 int main()
 {
     char filename[] = "../SourceFile.txt";
@@ -220,12 +259,17 @@ int main()
         {
             data[size] = i;
             frequency[size] = charFrequency[i];
-            printf("字符: %c  频率: %d\n", data[size], frequency[size]);
+            //printf("字符: %c  频率: %d\n", data[size], frequency[size]);
             size++;
         }
     }
+    sortFrequency(data, frequency, size);
+    for (int i = 0; i < size; i++)
+    {
+        printf("字符: %c  频率: %d\n", data[i], frequency[i]);
+    }
     Node *root = buildHuffmanTree(data, frequency, size);
-    //printTree(root, 0);
+    printTree(root, 0,0);
     getHuffmanCodes(root);
     // 对正文进行编码并存入文件
     char encodedText[10000] = ""; // 用于存储编码后的文本
@@ -242,6 +286,7 @@ int main()
     {
         getHuffmanCode(root, ch, code);
         //printf("%d",i++);
+        printf("%s\n", code);
         strcat(encodedText, code);
  //       printf("%s", encodedText);
     }
